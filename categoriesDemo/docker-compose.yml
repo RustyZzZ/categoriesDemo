@@ -11,6 +11,8 @@ services:
       - DATASOURCE_USERNAME=compose-postgres
       - DATASOURCE_PASSWORD=compose-postgres
       - JPA_HIBERNATE_DDL_AUTO=update
+      - JWT_SECRET=my-super-secret
+      - JWT_EXPIRATION=600000
     ports:
       - 8080:8080
 

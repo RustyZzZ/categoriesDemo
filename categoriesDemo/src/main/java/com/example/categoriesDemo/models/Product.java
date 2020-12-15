@@ -10,7 +10,7 @@ import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "product")
+@Table(name = "products")
 @Data
 public class Product extends Identity {
 	@Column(length = 3, nullable = false)

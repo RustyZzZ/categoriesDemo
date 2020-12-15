@@ -8,7 +8,7 @@ databaseChangeLog:
       author: rostyslav_diachuk
       changes:
         - createTable:
-            tableName: category
+            tableName: categories
             columns:
               - column:
                   name: id
@@ -34,10 +34,10 @@ databaseChangeLog:
                   constraints:
                     nullable: true
                     foreignKeyName: fk_category_subcategory
-                    references: category(id)
+                    references: categories(id)
 
         - createTable:
-            tableName: product
+            tableName: products
             columns:
               - column:
                   name: id
@@ -63,7 +63,7 @@ databaseChangeLog:
                   constraints:
                     nullable: true
                     foreignKeyName: fk_category_product
-                    references: category(id)
+                    references: categories(id)
               - column:
                   name: currency
                   type: varchar(3)
@@ -74,3 +74,109 @@ databaseChangeLog:
                   type: numeric(19,2)
                   constraints:
                     nullable: false
+
+  - changeSet:
+      id: 2
+      author: rostyslav_diachuk
+      changes:
+        - createTable:
+            tableName: roles
+            columns:
+              - column:
+                  name: id
+                  type: int8
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_roles
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(20)
+                  constraints:
+                    nullable: true
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: int8
+                  autoIncrement: true
+                  startWith: 100
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_users
+                    nullable: false
+              - column:
+                  name: username
+                  type: varchar(20)
+                  constraints:
+                    nullable: true
+                    unique: true
+              - column:
+                  name: password
+                  type: varchar(120)
+                  constraints:
+                    nullable: true
+        - createTable:
+            tableName: user_roles
+            columns:
+              - column:
+                  name: user_id
+                  type: int8
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_user_role
+                    references: users(id)
+              - column:
+                  name: role_id
+                  type: int8
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_roles_user
+                    references: roles(id)
+  - changeSet:
+      id: 3
+      author: rostyslav_diachuk
+      changes:
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: name
+                  value: ROLE_ADMIN
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: name
+                  value: ROLE_USER
+
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: username
+                  value: admin
+              - column:
+                  name: password
+                  value: $2a$10$HauW7jd5Fv3R5qd7IOv.iOSDvf/6y22g/Se5S8w2FIZlU9Rczcsoi
+
+        - insert:
+            tableName: user_roles
+            columns:
+              - column:
+                  name: user_id
+                  value: 1
+              - column:
+                  name: role_id
+                  value: 1

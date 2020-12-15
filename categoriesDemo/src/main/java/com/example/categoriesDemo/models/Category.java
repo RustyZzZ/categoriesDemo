@@ -10,7 +10,7 @@ import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "category")
+@Table(name = "categories")
 @Data
 public class Category extends Identity {
 	@OneToMany(mappedBy = "category")
