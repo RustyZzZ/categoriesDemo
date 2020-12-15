@@ -1,0 +1,76 @@
+databaseChangeLog:
+  - preConditions:
+  - runningAs:
+      username: liquibase
+
+  - changeSet:
+      id: 1
+      author: rostyslav_diachuk
+      changes:
+        - createTable:
+            tableName: category
+            columns:
+              - column:
+                  name: id
+                  type: int8
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_category
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: description
+                  type: varchar(255)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: category_id
+                  type: int8
+                  constraints:
+                    nullable: true
+                    foreignKeyName: fk_category_subcategory
+                    references: category(id)
+
+        - createTable:
+            tableName: product
+            columns:
+              - column:
+                  name: id
+                  type: int8
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_product
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: description
+                  type: varchar(255)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: category_id
+                  type: int8
+                  constraints:
+                    nullable: true
+                    foreignKeyName: fk_category_product
+                    references: category(id)
+              - column:
+                  name: currency
+                  type: varchar(3)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: price
+                  type: numeric(19,2)
+                  constraints:
+                    nullable: false
