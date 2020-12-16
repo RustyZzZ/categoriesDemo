@@ -1,7 +1,7 @@
 package com.example.categoriesDemo.filters;
 
-import com.example.categoriesDemo.security.UserDetailsServiceImpl;
 import com.example.categoriesDemo.security.JwtUtils;
+import com.example.categoriesDemo.security.UserDetailsServiceImpl;
 import java.io.IOException;
 import java.util.Optional;
 import javax.servlet.FilterChain;
